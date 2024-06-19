@@ -1,10 +1,16 @@
 package main
 
 import (
-  "fmt"
+	"html/template"
+	"net/http"
 )
 
-func main()  {
- fmt.Println("hello world") 
-}
+func main() {
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		templ := template.Must(template.ParseFiles("index.html"))
+		templ.Execute(w, nil)
+	}
 
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":8000", nil)
+}
