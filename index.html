@@ -7,6 +7,14 @@
     <link href="css/style.css" rel="stylesheet">
   </head>
   <body>
-  <div>Hello world!</div>
+  <ul>
+    {{range .Pokemons}}
+    <li>
+        Name: {{.Name}}
+        Type: {{.Type}}
+    </li>
+    {{end}}
+      
+    </ul>
   </body>
 </html>
