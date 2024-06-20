@@ -5,10 +5,20 @@ import (
 	"net/http"
 )
 
+type Pokemon struct {
+	Type string
+	Name string
+}
+
 func main() {
+	data := map[string][]Pokemon{
+		"Pokemons": {
+			Pokemon{Type: "fire", Name: "Charizard"},
+		},
+	}
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		templ := template.Must(template.ParseFiles("index.html"))
-		templ.Execute(w, nil)
+		templ.Execute(w, data)
 	}
 
 	http.HandleFunc("/", handler)
