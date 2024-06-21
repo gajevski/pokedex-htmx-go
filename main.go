@@ -18,7 +18,7 @@ func main() {
 		},
 	}
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		templ := template.Must(template.ParseFiles("index.html"))
+		templ := template.Must(template.ParseFiles("./templates/index.html"))
 		templ.Execute(w, data)
 	}
 
