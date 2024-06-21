@@ -13,7 +13,8 @@ type Pokemon struct {
 func main() {
 	data := map[string][]Pokemon{
 		"Pokemons": {
-			Pokemon{Type: "fire", Name: "Charizard"},
+			Pokemon{Type: "Fire", Name: "Charizard"},
+			Pokemon{Type: "Grass", Name: "Bulbasaur"},
 		},
 	}
 	handler := func(w http.ResponseWriter, r *http.Request) {
