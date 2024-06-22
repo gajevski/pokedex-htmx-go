@@ -9,16 +9,24 @@
     <title>Pokedex</title>
     <link href="./css/output.css" rel="stylesheet" />
   </head>
-  <body>
-    <div class="md:container md:mx-auto">
-  <ul>
-    {{range .Pokemons}}
-    <li>
-        Name: {{.Name}}
-        Type: {{.Type}}
-    </li>
-    {{end}}
-    </ul>
-      </div>
-  </body>
+<body class="bg-gray-100">
+    <header class="bg-red-500 text-white py-6">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold">Pokedex</h1>
+        </div>
+    </header>
+    
+    <main class="container mx-auto mt-10">
+        {{range .Results}}
+        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-4">
+            <div class="md:flex">
+                <div class="p-8">
+                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{.}}</div>
+                    <a href="/pokemon/{{.Name}}" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{.Name}}</a>
+                </div>
+            </div>
+        </div>
+        {{end}}
+    </main>
+</body>
 </html>
