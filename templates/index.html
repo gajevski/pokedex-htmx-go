@@ -15,18 +15,16 @@
             <h1 class="text-4xl font-bold">Pokedex</h1>
         </div>
     </header>
-    
     <main class="container mx-auto mt-10">
-        {{range .Results}}
-        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-4">
-            <div class="md:flex">
-                <div class="p-8">
-                    <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{.}}</div>
-                    <a href="/pokemon/{{.Name}}" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{.Name}}</a>
-                </div>
-            </div>
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <ul class="divide-y divide-gray-200">
+                {{range .Results}}
+                <li class="py-4 flex">
+                <a href="/pokemon/{{.Name}}" class="text-lg font-semibold">{{.Name}}</a>
+                </li>
+                {{end}}
+            </ul>
         </div>
-        {{end}}
     </main>
 </body>
 </html>
