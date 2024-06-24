@@ -9,13 +9,6 @@ import (
 	"github.com/mtslzr/pokeapi-go"
 )
 
-func main() {
-	http.HandleFunc("/", landingPageHandler)
-	http.HandleFunc("/pokemon/", pokemonPageHandler)
-	fmt.Println("Server running on port 8000")
-	http.ListenAndServe(":8000", nil)
-}
-
 func landingPageHandler(w http.ResponseWriter, r *http.Request) {
 	pokemonData, err := pokeapi.Resource("pokemon", 0, 15)
 	if err != nil {
@@ -40,4 +33,11 @@ func pokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	templ := template.Must(template.ParseFiles("./templates/pokemon.html"))
 	templ.Execute(w, pokemon)
+}
+
+func main() {
+	http.HandleFunc("/{$}", landingPageHandler)
+	http.HandleFunc("/pokemon/{name}", pokemonPageHandler)
+	fmt.Println("Server running on port 8000")
+	http.ListenAndServe(":8000", nil)
 }
