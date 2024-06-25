@@ -36,8 +36,8 @@ func pokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/{$}", landingPageHandler)
-	http.HandleFunc("/pokemon/{name}", pokemonPageHandler)
+	http.HandleFunc("GET /{$}", landingPageHandler)
+	http.HandleFunc("GET /pokemon/{name}", pokemonPageHandler)
 	fmt.Println("Server running on port 8000")
 	http.ListenAndServe(":8000", nil)
 }
