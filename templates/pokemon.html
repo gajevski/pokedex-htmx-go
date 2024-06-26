@@ -23,7 +23,7 @@
                 <div class="flex justify-center mb-4">
                     <img class="h-48 w-48 object-cover" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.ID}}.png" alt="{{.Name}}">
                 </div>
-                <h2 class="text-3xl font-bold mb-2">{{.Name}}</h2>
+                <h2 class="text-3xl font-bold mb-2">#{{.ID}} {{.Name}}</h2>
                 <div class="uppercase tracking-wide text-sm text-yellow-500 font-semibold mb-4 flex-row">
                   {{range .Types}}
                   <span>{{.Type.Name}}</span>
