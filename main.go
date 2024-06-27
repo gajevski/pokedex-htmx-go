@@ -9,6 +9,11 @@ import (
 	"github.com/mtslzr/pokeapi-go"
 )
 
+type PokemonDetailsData struct {
+	Pokemon    any
+	Evolutions any
+}
+
 func landingPageHandler(w http.ResponseWriter, r *http.Request) {
 	pokemonData, err := pokeapi.Resource("pokemon", 0, 15)
 	if err != nil {
@@ -30,9 +35,19 @@ func pokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Pokemon not found", http.StatusNotFound)
 		return
 	}
+	evolutions, err := pokeapi.EvolutionChain("1")
+	if err != nil {
+		http.Error(w, "Evolution chain not found", http.StatusNotFound)
+		return
+	}
+
+	pokemonDetailsData := PokemonDetailsData{
+		Pokemon:    pokemon,
+		Evolutions: evolutions,
+	}
 
 	templ := template.Must(template.ParseFiles("./templates/pokemon.html"))
-	templ.Execute(w, pokemon)
+	templ.Execute(w, pokemonDetailsData)
 }
 
 func main() {
