@@ -5,6 +5,8 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"net/url"
+	"strings"
 
 	"github.com/mtslzr/pokeapi-go"
 )
@@ -35,7 +37,17 @@ func pokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Pokemon not found", http.StatusNotFound)
 		return
 	}
-	evolutions, err := pokeapi.EvolutionChain("1")
+	pokemonSpecies, err := pokeapi.PokemonSpecies(pokemonName)
+	if err != nil {
+		http.Error(w, "Pokemon species not found", http.StatusNotFound)
+		return
+	}
+	evolutionId, err := extractId(pokemonSpecies.EvolutionChain.URL)
+	if err != nil {
+		http.Error(w, "Evolution chain URL not found", http.StatusNotFound)
+		return
+	}
+	evolutions, err := pokeapi.EvolutionChain(evolutionId)
 	if err != nil {
 		http.Error(w, "Evolution chain not found", http.StatusNotFound)
 		return
@@ -55,4 +67,21 @@ func main() {
 	http.HandleFunc("GET /pokemon/{name}", pokemonPageHandler)
 	fmt.Println("Server running on port 8000")
 	http.ListenAndServe(":8000", nil)
+}
+
+func extractId(urlString string) (string, error) {
+	u, err := url.Parse(urlString)
+	if err != nil {
+		fmt.Println("Error parsing URL:", err)
+		return "", err
+	}
+	path := u.Path
+	parts := strings.Split(path, "/")
+	if len(parts) > 1 {
+		number := parts[len(parts)-2]
+		return number, nil
+	} else {
+		fmt.Println("URL path format is incorrect")
+	}
+	return "", nil
 }
