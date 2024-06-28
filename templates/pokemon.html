@@ -49,22 +49,63 @@
               {{end}}
             </ul>
           </div>
+          <h3 class="text-xl font-semibold mb-2">Moves:</h3>
           <div id="attacks" class="max-h-96 overflow-y-auto">
-            <h3 class="text-xl font-semibold mb-2">Moves:</h3>
             <ul>
               {{range .Pokemon.Moves}}
               <li class="bg-gray-200 p-2 my-2 rounded">{{.Move.Name}}</li>
               {{end}}
             </ul>
           </div>
-          <div id="evolutions" class="max-h-96 overflow-y-auto">
-            <h3 class="text-xl font-semibold mb-2">Evolutions:</h3>
-            <div class="flex justify-evenly">
+          <div id="evolutions" class="max-h-96 overflow-y-auto mt-8">
+            <h3 class="text-xl font-semibold mb-4">Evolution Chain:</h3>
+            <div class="flex justify-center items-center space-x-4">
+              <!-- Początkowy Pokemon -->
+              <div class="text-center">
+                <a
+                  href="/pokemon/{{.Evolutions.Chain.Species.Name}}"
+                  class="block mb-2 text-gray-700 hover:text-red-500 transition"
+                >
+                  <!-- <img -->
+                  <!--   class="h-24 w-24 object-cover mx-auto" -->
+                  <!--   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.Evolutions.Chain.Species.Name}}.png" -->
+                  <!--   alt="{{.Evolutions.Chain.Species.Name}}" -->
+                  <!-- /> -->
+                  <span>{{.Evolutions.Chain.Species.Name}}</span>
+                </a>
+              </div>
+              <!-- Separator -->
+              <div class="text-gray-500">---</div>
+              <!-- Kolejne etapy ewolucji -->
               {{range .Evolutions.Chain.EvolvesTo}}
-              <div>{{.Species.Name}}</div>
-              <div>---</div>
+              <div class="text-center">
+                <a
+                  href="/pokemon/{{.Species.Name}}"
+                  class="block mb-2 text-gray-700 hover:text-red-500 transition"
+                >
+                  <!-- <img -->
+                  <!--   class="h-24 w-24 object-cover mx-auto" -->
+                  <!--   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.Species.Name}}.png" -->
+                  <!--   alt="{{.Species.Name}}" -->
+                  <!-- /> -->
+                  <span>{{.Species.Name}}</span>
+                </a>
+              </div>
+              <div class="text-gray-500">---</div>
               {{range .EvolvesTo}}
-              <div>{{.Species.Name}}</div>
+              <div class="text-center">
+                <a
+                  href="/pokemon/{{.Species.Name}}"
+                  class="block mb-2 text-gray-700 hover:text-red-500 transition"
+                >
+                  <!-- <img -->
+                  <!--   class="h-24 w-24 object-cover mx-auto" -->
+                  <!--   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" -->
+                  <!--   alt="{{.Species.Name}}" -->
+                  <!-- /> -->
+                  <span>{{.Species.Name}}</span>
+                </a>
+              </div>
               {{end}} {{end}}
             </div>
           </div>
