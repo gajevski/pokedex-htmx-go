@@ -17,15 +17,22 @@
     </header>
     <main class="container mx-auto mt-10">
       <div class="bg-white rounded-xl shadow-md p-6">
-        <ul class="divide-y divide-gray-200">
+        <div class="grid grid-cols-4 gap-6">
           {{range .Results}}
-          <li class="py-4 flex">
-            <a href="/pokemon/{{.Name}}" class="text-lg font-semibold"
-              >{{.Name}}</a
-            >
-          </li>
+          <div
+            class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-200"
+          >
+            <a href="/pokemon/{{.Name}}" class="block text-center">
+              <img
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{extractId .URL}}.png"
+                alt="{{.Name}}"
+                class="mx-auto mb-2"
+              />
+              <span class="text-lg font-semibold">{{.Name}}</span>
+            </a>
+          </div>
           {{end}}
-        </ul>
+        </div>
       </div>
     </main>
   </body>
