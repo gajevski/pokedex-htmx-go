@@ -17,12 +17,14 @@
     </header>
 
     <main class="container mx-auto mt-10">
-      <a href="/" class="text-gray-500 hover:underline">&larr; Back</a>
-      <a
-        href="/pokemon/{{incrementId .Pokemon.ID}}"
-        class="text-gray-500 hover:underline"
-        >Next &rarr;</a
-      >
+      <div class="flex justify-between">
+        <a href="/" class="text-gray-500 hover:underline">&larr; List</a>
+        <a
+          href="/pokemon/{{incrementId .Pokemon.ID}}"
+          class="text-gray-500 hover:underline"
+          >#{{incrementId .Pokemon.ID}}&rarr;</a
+        >
+      </div>
       <div
         class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden"
       >
