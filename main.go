@@ -9,11 +9,12 @@ import (
 	"strings"
 
 	"github.com/mtslzr/pokeapi-go"
+	"github.com/mtslzr/pokeapi-go/structs"
 )
 
 type PokemonDetailsData struct {
-	Pokemon    any
-	Evolutions any
+	Evolutions structs.EvolutionChain
+	Pokemon    structs.Pokemon
 }
 
 func landingPageHandler(w http.ResponseWriter, r *http.Request) {
