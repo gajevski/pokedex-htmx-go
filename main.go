@@ -62,6 +62,8 @@ func pokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 
 	templ := template.Must(template.New("pokemon.html").Funcs(template.FuncMap{
 		"incrementId": incrementId,
+		"decrementId": decrementId,
+		"extractId":   extractId,
 	}).ParseFiles("./templates/pokemon.html"))
 
 	templ.Execute(w, pokemonDetailsData)
@@ -93,4 +95,8 @@ func extractId(urlString string) (string, error) {
 
 func incrementId(id int) int {
 	return id + 1
+}
+
+func decrementId(id int) int {
+	return id - 1
 }
