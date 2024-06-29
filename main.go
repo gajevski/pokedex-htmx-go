@@ -58,7 +58,10 @@ func pokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 		Evolutions: evolutions,
 	}
 
-	templ := template.Must(template.ParseFiles("./templates/pokemon.html"))
+	templ := template.Must(template.New("pokemon.html").Funcs(template.FuncMap{
+		"incrementId": incrementId,
+	}).ParseFiles("./templates/pokemon.html"))
+
 	templ.Execute(w, pokemonDetailsData)
 }
 
@@ -84,4 +87,8 @@ func extractId(urlString string) (string, error) {
 		fmt.Println("URL path format is incorrect")
 	}
 	return "", nil
+}
+
+func incrementId(id int) int {
+	return id + 1
 }
