@@ -12,13 +12,20 @@
   <body class="bg-gray-100">
     <header class="bg-red-500 text-white py-6">
       <div class="container mx-auto text-center">
+        <a href="/" class="text-2xl text-white-500 hover:underline"
+          >&larr; List</a
+        >
         <h1 class="text-4xl font-bold">Pokedex</h1>
       </div>
     </header>
 
     <main class="container mx-auto mt-10">
       <div class="flex justify-between">
-        <a href="/" class="text-gray-500 hover:underline">&larr; List</a>
+        <a
+          href="/pokemon/{{decrementId .Pokemon.ID}}"
+          class="text-gray-500 hover:underline"
+          >&larr; #{{decrementId .Pokemon.ID}}</a
+        >
         <a
           href="/pokemon/{{incrementId .Pokemon.ID}}"
           class="text-gray-500 hover:underline"
@@ -73,11 +80,11 @@
                   href="/pokemon/{{.Evolutions.Chain.Species.Name}}"
                   class="block mb-2 text-gray-700 hover:text-red-500 transition"
                 >
-                  <!-- <img -->
-                  <!--   class="h-24 w-24 object-cover mx-auto" -->
-                  <!--   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.Evolutions.Chain.Species.Name}}.png" -->
-                  <!--   alt="{{.Evolutions.Chain.Species.Name}}" -->
-                  <!-- /> -->
+                  <img
+                    class="h-24 w-24 object-cover mx-auto"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{extractId .Evolutions.Chain.Species.URL}}.png"
+                    alt="{{.Evolutions.Chain.Species.Name}}"
+                  />
                   <span>{{.Evolutions.Chain.Species.Name}}</span>
                 </a>
               </div>
@@ -90,11 +97,11 @@
                   href="/pokemon/{{.Species.Name}}"
                   class="block mb-2 text-gray-700 hover:text-red-500 transition"
                 >
-                  <!-- <img -->
-                  <!--   class="h-24 w-24 object-cover mx-auto" -->
-                  <!--   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{.Species.Name}}.png" -->
-                  <!--   alt="{{.Species.Name}}" -->
-                  <!-- /> -->
+                  <img
+                    class="h-24 w-24 object-cover mx-auto"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{extractId .Species.URL}}.png"
+                    alt="{{.Species.Name}}"
+                  />
                   <span>{{.Species.Name}}</span>
                 </a>
               </div>
@@ -105,11 +112,11 @@
                   href="/pokemon/{{.Species.Name}}"
                   class="block mb-2 text-gray-700 hover:text-red-500 transition"
                 >
-                  <!-- <img -->
-                  <!--   class="h-24 w-24 object-cover mx-auto" -->
-                  <!--   src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" -->
-                  <!--   alt="{{.Species.Name}}" -->
-                  <!-- /> -->
+                  <img
+                    class="h-24 w-24 object-cover mx-auto"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{extractId .Species.URL}}.png"
+                    alt="{{.Species.Name}}"
+                  />
                   <span>{{.Species.Name}}</span>
                 </a>
               </div>
