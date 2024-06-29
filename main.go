@@ -17,11 +17,13 @@ type PokemonDetailsData struct {
 }
 
 func landingPageHandler(w http.ResponseWriter, r *http.Request) {
-	pokemonData, err := pokeapi.Resource("pokemon", 0, 15)
+	pokemonData, err := pokeapi.Resource("pokemon", 0, 1025)
 	if err != nil {
 		log.Panic("error fetching pokeapi")
 	}
-	templ := template.Must(template.ParseFiles("./templates/index.html"))
+	templ := template.Must(template.New("index.html").Funcs(template.FuncMap{
+		"extractId": extractId,
+	}).ParseFiles("./templates/index.html"))
 	templ.Execute(w, pokemonData)
 }
 
