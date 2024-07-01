@@ -18,7 +18,7 @@ type PokemonDetailsData struct {
 }
 
 func landingPageHandler(w http.ResponseWriter, r *http.Request) {
-	pokemonData, err := pokeapi.Resource("pokemon", 0, 1025)
+	pokemonData, err := pokeapi.Resource("pokemon", 0, 905)
 	if err != nil {
 		log.Panic("error fetching pokeapi")
 	}
@@ -62,9 +62,10 @@ func pokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	templ := template.Must(template.New("pokemon.html").Funcs(template.FuncMap{
-		"incrementId": incrementId,
-		"decrementId": decrementId,
-		"extractId":   extractId,
+		"incrementId":         incrementId,
+		"decrementId":         decrementId,
+		"extractId":           extractId,
+		"preparePokemonImage": preparePokemonImage,
 	}).ParseFiles("./templates/pokemon.html"))
 
 	templ.Execute(w, pokemonDetailsData)
@@ -100,4 +101,14 @@ func incrementId(id int) int {
 
 func decrementId(id int) int {
 	return id - 1
+}
+
+func preparePokemonImage(id int) string {
+	if id < 10 {
+		return fmt.Sprintf("00%d", id)
+	}
+	if id < 100 && id >= 10 {
+		return fmt.Sprintf("0%d", id)
+	}
+	return fmt.Sprintf("%d", id)
 }
