@@ -34,7 +34,7 @@
         <a
           href="/pokemon/{{incrementId .Pokemon.ID}}"
           class="text-gray-500 hover:underline"
-          >#{{incrementId .Pokemon.ID}}&rarr;</a
+          >#{{incrementId .Pokemon.ID}} &rarr;</a
         >
       </div>
       <div
@@ -62,17 +62,28 @@
           <div class="bg-gray-200 rounded-lg p-4 mb-4">
             <ul class="text-left">
               {{range .Pokemon.Stats}}
-              <li class="py-1">
-                <strong>{{.Stat.Name}}:</strong> {{.BaseStat}}
+              <li class="py-1 flex items-center">
+                <strong class="w-24">{{.Stat.Name}}:</strong>
+                <div
+                  class="flex-grow h-4 bg-gray-300 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-blue-500 rounded-full"
+                    style="width: {{.BaseStat}}%;"
+                  ></div>
+                </div>
+                <span class="ml-2">{{.BaseStat}}</span>
               </li>
               {{end}}
             </ul>
           </div>
           <h3 class="text-xl font-semibold mb-2">Moves:</h3>
           <div id="attacks" class="max-h-96 overflow-y-auto">
-            <ul>
+            <ul class="grid grid-cols-2 gap-4">
               {{range .Pokemon.Moves}}
-              <li class="bg-gray-200 p-2 my-2 rounded">{{.Move.Name}}</li>
+              <li class="bg-gray-200 p-2 my-2 rounded text-center">
+                {{.Move.Name}}
+              </li>
               {{end}}
             </ul>
           </div>
