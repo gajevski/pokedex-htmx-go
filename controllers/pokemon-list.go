@@ -1,4 +1,4 @@
-package pokemonList
+package controllers
 
 import (
 	"log"
