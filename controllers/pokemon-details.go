@@ -17,14 +17,9 @@ type PokemonDetailsData struct {
 func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 	pokemonName := extractPokemonName(w, r)
 	pokemon := getPokemon(pokemonName, w)
-
 	pokemonSpecies := getPokemonSpecies(pokemonName, w)
-	evolutionId, err := utils.ExtractID(pokemonSpecies.EvolutionChain.URL)
-	if err != nil {
-		http.Error(w, "Evolution chain URL not found", http.StatusNotFound)
-		return
-	}
-	evolutions, err := pokeapi.EvolutionChain(evolutionId)
+	evolutionID := getEvolutionID(pokemonSpecies, w)
+	evolutions, err := pokeapi.EvolutionChain(evolutionID)
 	if err != nil {
 		http.Error(w, "Evolution chain not found", http.StatusNotFound)
 		return
@@ -71,4 +66,13 @@ func getPokemonSpecies(pokemonName string, w http.ResponseWriter) structs.Pokemo
 		return structs.PokemonSpecies{}
 	}
 	return pokemonSpecies
+}
+
+func getEvolutionID(pokemonSpecies structs.PokemonSpecies, w http.ResponseWriter) string {
+	evolutionId, err := utils.ExtractID(pokemonSpecies.EvolutionChain.URL)
+	if err != nil {
+		http.Error(w, "Evolution chain URL not found", http.StatusNotFound)
+		return ""
+	}
+	return evolutionId
 }
