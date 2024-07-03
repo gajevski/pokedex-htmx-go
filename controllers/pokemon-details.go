@@ -15,17 +15,9 @@ type PokemonDetailsData struct {
 }
 
 func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
-	pokemonName := r.URL.Path[len("/pokemon/"):]
-	if pokemonName == "" {
-		http.Error(w, "Pokemon name is missing", http.StatusBadRequest)
-		return
-	}
+	pokemonName := extractPokemonName(w, r)
+	pokemon := getPokemon(pokemonName, w)
 
-	pokemon, err := pokeapi.Pokemon(pokemonName)
-	if err != nil {
-		http.Error(w, "Pokemon not found", http.StatusNotFound)
-		return
-	}
 	pokemonSpecies, err := pokeapi.PokemonSpecies(pokemonName)
 	if err != nil {
 		http.Error(w, "Pokemon species not found", http.StatusNotFound)
@@ -55,4 +47,23 @@ func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 	}).ParseFiles("./templates/pokemon.html"))
 
 	templ.Execute(w, pokemonDetailsData)
+}
+
+func extractPokemonName(w http.ResponseWriter, r *http.Request) string {
+	pokemonName := r.URL.Path[len("/pokemon/"):]
+	if pokemonName == "" {
+		http.Error(w, "Pokemon name is missing", http.StatusBadRequest)
+		return ""
+	}
+	return pokemonName
+}
+
+func getPokemon(pokemonName string, w http.ResponseWriter) structs.Pokemon {
+	pokemon, err := pokeapi.Pokemon(pokemonName)
+	if err != nil {
+		http.Error(w, "Pokemon not found", http.StatusNotFound)
+		return structs.Pokemon{}
+	}
+
+	return pokemon
 }
