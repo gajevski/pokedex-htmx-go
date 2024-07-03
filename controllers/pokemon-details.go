@@ -19,11 +19,7 @@ func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 	pokemon := getPokemon(pokemonName, w)
 	pokemonSpecies := getPokemonSpecies(pokemonName, w)
 	evolutionID := getEvolutionID(pokemonSpecies, w)
-	evolutions, err := pokeapi.EvolutionChain(evolutionID)
-	if err != nil {
-		http.Error(w, "Evolution chain not found", http.StatusNotFound)
-		return
-	}
+	evolutions := getEvolutions(evolutionID, w)
 
 	pokemonDetailsData := PokemonDetailsData{
 		Pokemon:    pokemon,
@@ -75,4 +71,13 @@ func getEvolutionID(pokemonSpecies structs.PokemonSpecies, w http.ResponseWriter
 		return ""
 	}
 	return evolutionId
+}
+
+func getEvolutions(evolutionID string, w http.ResponseWriter) structs.EvolutionChain {
+	evolutions, err := pokeapi.EvolutionChain(evolutionID)
+	if err != nil {
+		http.Error(w, "Evolution chain not found", http.StatusNotFound)
+		return structs.EvolutionChain{}
+	}
+	return evolutions
 }
