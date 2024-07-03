@@ -18,11 +18,7 @@ func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 	pokemonName := extractPokemonName(w, r)
 	pokemon := getPokemon(pokemonName, w)
 
-	pokemonSpecies, err := pokeapi.PokemonSpecies(pokemonName)
-	if err != nil {
-		http.Error(w, "Pokemon species not found", http.StatusNotFound)
-		return
-	}
+	pokemonSpecies := getPokemonSpecies(pokemonName, w)
 	evolutionId, err := utils.ExtractID(pokemonSpecies.EvolutionChain.URL)
 	if err != nil {
 		http.Error(w, "Evolution chain URL not found", http.StatusNotFound)
@@ -66,4 +62,13 @@ func getPokemon(pokemonName string, w http.ResponseWriter) structs.Pokemon {
 	}
 
 	return pokemon
+}
+
+func getPokemonSpecies(pokemonName string, w http.ResponseWriter) structs.PokemonSpecies {
+	pokemonSpecies, err := pokeapi.PokemonSpecies(pokemonName)
+	if err != nil {
+		http.Error(w, "Pokemon species not found", http.StatusNotFound)
+		return structs.PokemonSpecies{}
+	}
+	return pokemonSpecies
 }
