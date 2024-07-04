@@ -10,8 +10,10 @@ import (
 )
 
 type PokemonDetailsData struct {
-	Evolutions structs.EvolutionChain
-	Pokemon    structs.Pokemon
+	Evolutions          structs.EvolutionChain
+	Pokemon             structs.Pokemon
+	ShowPreviousPokemon bool
+	ShowNextPokemon     bool
 }
 
 func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
@@ -22,8 +24,10 @@ func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 	evolutions := getEvolutions(evolutionID, w)
 
 	pokemonDetailsData := PokemonDetailsData{
-		Pokemon:    pokemon,
-		Evolutions: evolutions,
+		Pokemon:             pokemon,
+		Evolutions:          evolutions,
+		ShowPreviousPokemon: isPreviousButtonVisible(pokemon.ID),
+		ShowNextPokemon:     isNextButtonVisible(pokemon.ID),
 	}
 
 	templ := template.Must(template.New("pokemon.html").Funcs(template.FuncMap{
@@ -80,4 +84,20 @@ func getEvolutions(evolutionID string, w http.ResponseWriter) structs.EvolutionC
 		return structs.EvolutionChain{}
 	}
 	return evolutions
+}
+
+func isPreviousButtonVisible(id int) bool {
+	if id <= 1 {
+		return false
+	} else {
+		return true
+	}
+}
+
+func isNextButtonVisible(id int) bool {
+	if id == 904 {
+		return false
+	} else {
+		return true
+	}
 }
