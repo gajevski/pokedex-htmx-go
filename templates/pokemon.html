@@ -26,16 +26,23 @@
 
     <main class="container mx-auto mt-10">
       <div class="flex justify-between">
+        {{if not .ShowPreviousPokemon}}
+        <div></div>
+        {{end}} {{if .ShowPreviousPokemon}}
         <a
           href="/pokemon/{{decrementId .Pokemon.ID}}"
           class="text-gray-500 hover:underline"
           >&larr; #{{decrementId .Pokemon.ID}}</a
         >
+        {{end}} {{if not .ShowNextPokemon}}
+        <div></div>
+        {{end}} {{if .ShowNextPokemon}}
         <a
           href="/pokemon/{{incrementId .Pokemon.ID}}"
           class="text-gray-500 hover:underline"
           >#{{incrementId .Pokemon.ID}} &rarr;</a
         >
+        {{end}}
       </div>
       <div
         class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden"
