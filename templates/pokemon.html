@@ -88,9 +88,11 @@
           <div id="attacks" class="max-h-96 overflow-y-auto">
             <ul class="grid grid-cols-2 gap-4">
               {{range .Pokemon.Moves}}
-              <li class="bg-gray-200 p-2 my-2 rounded text-center">
-                {{.Move.Name}}
-              </li>
+              <a href="/move/{{extractId .Move.URL}}">
+                <li class="bg-gray-200 p-2 my-2 rounded text-center">
+                  {{.Move.Name}}
+                </li>
+              </a>
               {{end}}
             </ul>
           </div>
