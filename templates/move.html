@@ -1,4 +1,5 @@
 <!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -28,7 +29,39 @@
       <div
         class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden"
       >
-        {{.}}
+        <div class="p-8 text-center">
+          <h2 class="text-3xl font-bold mb-2">{{.Name}}</h2>
+          <div
+            class="uppercase tracking-wide text-sm text-yellow-500 font-semibold mb-4 flex-row"
+          >
+            <span>{{.Type.Name}}</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Details:</h3>
+          <div class="bg-gray-200 rounded-lg p-4 mb-4">
+            <ul class="text-left">
+              <li class="py-1 flex items-center">
+                <strong class="w-48">Power:</strong>
+                <span>{{.Power}}</span>
+              </li>
+              <li class="py-1 flex items-center">
+                <strong class="w-48">PP:</strong>
+                <span>{{.Pp}}</span>
+              </li>
+              <li class="py-1 flex items-center">
+                <strong class="w-48">Accuracy:</strong>
+                <span>{{.Accuracy}}</span>
+              </li>
+              <li class="py-1 flex items-center">
+                <strong class="w-48">Priority:</strong>
+                <span>{{.Priority}}</span>
+              </li>
+              <li class="py-1 flex items-center">
+                <strong class="w-48">Damage Class:</strong>
+                <span>{{.DamageClass.Name}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </main>
   </body>
