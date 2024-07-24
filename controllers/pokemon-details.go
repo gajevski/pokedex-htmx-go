@@ -35,7 +35,7 @@ func PokemonPageHandler(w http.ResponseWriter, r *http.Request) {
 		"decrementId":         utils.DecrementID,
 		"extractId":           utils.ExtractID,
 		"preparePokemonImage": utils.PreparePokemonImage,
-	}).ParseFiles("./templates/pokemon.html"))
+	}).ParseFiles("../ui/html/pokemon.html"))
 
 	templ.Execute(w, pokemonDetailsData)
 }

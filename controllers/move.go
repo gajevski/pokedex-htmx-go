@@ -11,7 +11,7 @@ import (
 func MovePageController(w http.ResponseWriter, r *http.Request) {
 	moveID := extractMoveID(w, r)
 	moveData := getMove(moveID, w)
-	templ := template.Must(template.New("move.html").ParseFiles("./templates/move.html"))
+	templ := template.Must(template.New("move.html").ParseFiles("../ui/html/move.html"))
 	templ.Execute(w, moveData)
 }
 

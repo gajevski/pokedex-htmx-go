@@ -16,6 +16,6 @@ func PokemonListHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	templ := template.Must(template.New("index.html").Funcs(template.FuncMap{
 		"extractId": utils.ExtractID,
-	}).ParseFiles("./templates/index.html"))
+	}).ParseFiles("../ui/html/index.html"))
 	templ.Execute(w, pokemonData)
 }
