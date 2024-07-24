@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Pokedex</title>
+    <link href="../static/css/output.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100">
+    <header class="bg-red-500 text-white py-6">
+      <div class="container mx-auto flex items-center">
+        <div class="flex-none">
+          <a href="/" class="text-2xl text-white-500 hover:underline"
+            >&larr; List</a
+          >
+        </div>
+        <div class="flex-grow text-center">
+          <h1 class="text-4xl font-bold">Pokedex</h1>
+        </div>
+        <div class="flex-none"></div>
+      </div>
+    </header>
+
+    <main class="container mx-auto mt-10">
+      <div class="flex justify-between">
+        {{if not .ShowPreviousPokemon}}
+        <div></div>
+        {{end}} {{if .ShowPreviousPokemon}}
+        <a
+          href="/pokemon/{{decrementId .Pokemon.ID}}"
+          class="text-gray-500 hover:underline"
+          >&larr; #{{decrementId .Pokemon.ID}}</a
+        >
+        {{end}} {{if not .ShowNextPokemon}}
+        <div></div>
+        {{end}} {{if .ShowNextPokemon}}
+        <a
+          href="/pokemon/{{incrementId .Pokemon.ID}}"
+          class="text-gray-500 hover:underline"
+          >#{{incrementId .Pokemon.ID}} &rarr;</a
+        >
+        {{end}}
+      </div>
+      <div
+        class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden"
+      >
+        <div class="p-8 text-center">
+          <div class="flex justify-center mb-4">
+            <img
+              class="h-56 w-56 object-cover"
+              src="https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/{{preparePokemonImage .Pokemon.ID}}.png"
+              alt="{{.Pokemon.Name}}"
+            />
+          </div>
+          <h2 class="text-3xl font-bold mb-2">
+            #{{.Pokemon.ID}} {{.Pokemon.Name}}
+          </h2>
+          <div
+            class="uppercase tracking-wide text-sm text-yellow-500 font-semibold mb-4 flex-row"
+          >
+            {{range .Pokemon.Types}}
+            <span>{{.Type.Name}}</span>
+            {{end}}
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Stats:</h3>
+          <div class="bg-gray-200 rounded-lg p-4 mb-4">
+            <ul class="text-left">
+              {{range .Pokemon.Stats}}
+              <li class="py-1 flex items-center">
+                <strong class="w-24">{{.Stat.Name}}:</strong>
+                <div
+                  class="flex-grow h-4 bg-gray-300 rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-blue-500 rounded-full"
+                    style="width: {{.BaseStat}}%;"
+                  ></div>
+                </div>
+                <span class="ml-2">{{.BaseStat}}</span>
+              </li>
+              {{end}}
+            </ul>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Moves:</h3>
+          <div id="attacks" class="max-h-96 overflow-y-auto">
+            <ul class="grid grid-cols-2 gap-4">
+              {{range .Pokemon.Moves}}
+              <a href="/move/{{extractId .Move.URL}}">
+                <li class="bg-gray-200 p-2 my-2 rounded text-center">
+                  {{.Move.Name}}
+                </li>
+              </a>
+              {{end}}
+            </ul>
+          </div>
+          <div id="evolutions" class="max-h-96 overflow-y-auto mt-8">
+            <h3 class="text-xl font-semibold mb-4">Evolution Chain:</h3>
+            <div class="flex justify-center items-center space-x-4">
+              <div class="text-center">
+                <a
+                  href="/pokemon/{{.Evolutions.Chain.Species.Name}}"
+                  class="block mb-2 text-gray-700 hover:text-red-500 transition"
+                >
+                  <img
+                    class="h-48 w-48 object-cover mx-auto"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{extractId .Evolutions.Chain.Species.URL}}.png"
+                    alt="{{.Evolutions.Chain.Species.Name}}"
+                  />
+                  <span>{{.Evolutions.Chain.Species.Name}}</span>
+                </a>
+              </div>
+              {{range .Evolutions.Chain.EvolvesTo}}
+              <div class="text-center">
+                <a
+                  href="/pokemon/{{.Species.Name}}"
+                  class="block mb-2 text-gray-700 hover:text-red-500 transition"
+                >
+                  <img
+                    class="h-48 w-48 object-cover mx-auto"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{extractId .Species.URL}}.png"
+                    alt="{{.Species.Name}}"
+                  />
+                  <span>{{.Species.Name}}</span>
+                </a>
+              </div>
+              {{range .EvolvesTo}}
+              <div class="text-center">
+                <a
+                  href="/pokemon/{{.Species.Name}}"
+                  class="block mb-2 text-gray-700 hover:text-red-500 transition"
+                >
+                  <img
+                    class="h-48 w-48 object-cover mx-auto"
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{extractId .Species.URL}}.png"
+                    alt="{{.Species.Name}}"
+                  />
+                  <span>{{.Species.Name}}</span>
+                </a>
+              </div>
+              {{end}} {{end}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
